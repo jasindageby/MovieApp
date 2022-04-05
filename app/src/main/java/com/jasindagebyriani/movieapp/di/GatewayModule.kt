@@ -1,9 +1,6 @@
 package com.jasindagebyriani.movieapp.di
 
-import com.jasindagebyriani.movieapp.domain.gateway.GenreGateway
-import com.jasindagebyriani.movieapp.domain.gateway.GenreGatewayImpl
-import com.jasindagebyriani.movieapp.domain.gateway.PopularGateway
-import com.jasindagebyriani.movieapp.domain.gateway.PopularGatewayImpl
+import com.jasindagebyriani.movieapp.domain.gateway.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +14,7 @@ abstract class GatewayModule {
 
     @Binds
     abstract fun bindGenreGateway(genreGateway: GenreGatewayImpl): GenreGateway
+
+    @Binds
+    abstract fun bindTopRatedGateway(topRatedGateway: TopRatedGateway): TopRatedGateway
 }
