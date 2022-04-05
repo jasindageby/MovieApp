@@ -17,4 +17,7 @@ abstract class GatewayModule {
 
     @Binds
     abstract fun bindTopRatedGateway(topRatedGateway: TopRatedGatewayImpl): TopRatedGateway
+
+    @Binds
+    abstract fun bindFavoriteGateway(favoriteGateway: FavoriteGatewayImpl): FavoriteGateway
 }
