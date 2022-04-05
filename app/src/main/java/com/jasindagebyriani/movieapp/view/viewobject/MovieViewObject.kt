@@ -1,5 +1,9 @@
 package com.jasindagebyriani.movieapp.view.viewobject
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MovieViewObject(
     val id: Long,
     val title: String,
@@ -11,4 +15,4 @@ data class MovieViewObject(
     val voteAverage: Double,
     val voteCount: Long,
     val genre: List<String>
-)
+) : Parcelable
