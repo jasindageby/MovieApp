@@ -1,9 +1,6 @@
 package com.jasindagebyriani.movieapp.di
 
-import com.jasindagebyriani.movieapp.domain.usecase.PopularUseCase
-import com.jasindagebyriani.movieapp.domain.usecase.PopularUseCaseImpl
-import com.jasindagebyriani.movieapp.domain.usecase.TopRatedUseCase
-import com.jasindagebyriani.movieapp.domain.usecase.TopRatedUseCaseImpl
+import com.jasindagebyriani.movieapp.domain.usecase.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -17,4 +14,7 @@ abstract class UseCaseModule {
 
     @Binds
     abstract fun bindTopRatedUseCase(topRatedUseCase: TopRatedUseCaseImpl): TopRatedUseCase
+
+    @Binds
+    abstract fun bindFavoritesUseCase(favoriteUseCase: FavoriteUseCaseImpl): FavoriteUseCase
 }
