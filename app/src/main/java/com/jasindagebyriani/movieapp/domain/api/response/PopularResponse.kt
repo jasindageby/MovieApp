@@ -19,5 +19,5 @@ data class PopularResponse(
     @Json(name = "original_language") val originalLanguage: String,
     @Json(name = "vote_average") val voteAverage: Double,
     @Json(name = "vote_count") val voteCount: Long,
-    @Json(name = "genre_ids") val genreIds: List<Int>
+    @Json(name = "genre_ids") val genreIds: List<Long>
 )

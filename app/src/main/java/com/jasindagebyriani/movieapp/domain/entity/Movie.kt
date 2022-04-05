@@ -1,6 +1,6 @@
 package com.jasindagebyriani.movieapp.domain.entity
 
-data class Popular(
+data class Movie(
     val id: Long,
     val title: String,
     val overview: String,
@@ -10,5 +10,5 @@ data class Popular(
     val originalLanguage: String,
     val voteAverage: Double,
     val voteCount: Long,
-    val genreIds: List<Long>
+    val genre: List<String>
 )
