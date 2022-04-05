@@ -1,10 +1,13 @@
-package com.jasindagebyriani.movieapp.view
+package com.jasindagebyriani.movieapp.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.jasindagebyriani.movieapp.R
+import com.jasindagebyriani.movieapp.view.FavoriteFragment
+import com.jasindagebyriani.movieapp.view.PopularFragment
+import com.jasindagebyriani.movieapp.view.TopRatedFragment
 
 class MoviePagerAdapter(
     fragmentManager: FragmentManager,

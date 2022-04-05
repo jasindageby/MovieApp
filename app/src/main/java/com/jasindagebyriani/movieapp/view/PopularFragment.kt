@@ -5,11 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.jasindagebyriani.movieapp.databinding.FragmentPopularBinding
+import com.jasindagebyriani.movieapp.presenter.PopularContract
+import com.jasindagebyriani.movieapp.view.adapter.MovieAdapter
+import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class PopularFragment : Fragment() {
+@AndroidEntryPoint
+class PopularFragment : Fragment(), PopularContract.View {
+
+    @Inject
+    lateinit var presenter: PopularContract.Presenter
 
     private lateinit var binding: FragmentPopularBinding
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,5 +29,27 @@ class PopularFragment : Fragment() {
     ): View {
         binding = FragmentPopularBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        presenter.attachView(this)
+        presenter.loadData()
+
+        initRecyclerView()
+    }
+
+    override fun showList(movies: List<MovieViewObject>) {
+        adapter.submitList(movies)
+    }
+
+    override fun showError() {
+        TODO("Not yet implemented")
+    }
+
+    private fun initRecyclerView() {
+        val layoutManager = GridLayoutManager(requireContext(), 2)
+        adapter = MovieAdapter()
+        binding.rvPopular.layoutManager = layoutManager
+        binding.rvPopular.adapter = adapter
     }
 }

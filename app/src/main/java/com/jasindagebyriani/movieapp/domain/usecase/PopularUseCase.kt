@@ -6,12 +6,13 @@ import com.jasindagebyriani.movieapp.domain.entity.Popular
 import com.jasindagebyriani.movieapp.domain.gateway.GenreGateway
 import com.jasindagebyriani.movieapp.domain.gateway.PopularGateway
 import io.reactivex.rxjava3.core.Observable
+import javax.inject.Inject
 
 interface PopularUseCase {
     fun getPopularMovies(): Observable<List<Movie>>
 }
 
-class PopularUseCaseImpl(
+class PopularUseCaseImpl @Inject constructor(
     private val popularGateway: PopularGateway,
     private val genreGateway: GenreGateway
 ) : PopularUseCase {

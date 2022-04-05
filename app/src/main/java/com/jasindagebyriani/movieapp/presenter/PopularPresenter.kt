@@ -3,18 +3,16 @@ package com.jasindagebyriani.movieapp.presenter
 import com.jasindagebyriani.movieapp.domain.entity.Movie
 import com.jasindagebyriani.movieapp.domain.usecase.PopularUseCase
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class PopularPresenter @Inject constructor(
     private val popularUseCase: PopularUseCase,
-    private val ioScheduler: Scheduler = Schedulers.io(),
-    private val uiScheduler: Scheduler = AndroidSchedulers.mainThread()
+    private val ioScheduler: Scheduler,
+    private val uiScheduler: Scheduler
 ) : PopularContract.Presenter {
     private lateinit var view: PopularContract.View
 
