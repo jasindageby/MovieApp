@@ -1,7 +1,9 @@
 package com.jasindagebyriani.movieapp.di
 
 import com.jasindagebyriani.movieapp.presenter.PopularContract
+import com.jasindagebyriani.movieapp.presenter.TopRatedContract
 import com.jasindagebyriani.movieapp.view.PopularFragment
+import com.jasindagebyriani.movieapp.view.TopRatedFragment
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,5 +13,8 @@ import dagger.hilt.android.components.ActivityComponent
 @InstallIn(ActivityComponent::class)
 abstract class ViewModule {
     @Binds
-    abstract fun bindView(fragment: PopularFragment): PopularContract.View
+    abstract fun bindPopularFragment(fragment: PopularFragment): PopularContract.View
+
+    @Binds
+    abstract fun bindTopRatedFragment(fragment: TopRatedFragment): TopRatedContract.View
 }

@@ -16,5 +16,5 @@ abstract class GatewayModule {
     abstract fun bindGenreGateway(genreGateway: GenreGatewayImpl): GenreGateway
 
     @Binds
-    abstract fun bindTopRatedGateway(topRatedGateway: TopRatedGateway): TopRatedGateway
+    abstract fun bindTopRatedGateway(topRatedGateway: TopRatedGatewayImpl): TopRatedGateway
 }

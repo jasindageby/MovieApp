@@ -38,6 +38,11 @@ class PopularFragment : Fragment(), PopularContract.View {
         initRecyclerView()
     }
 
+    override fun onDestroy() {
+        presenter.detachView()
+        super.onDestroy()
+    }
+
     override fun showList(movies: List<MovieViewObject>) {
         adapter.submitList(movies)
     }
