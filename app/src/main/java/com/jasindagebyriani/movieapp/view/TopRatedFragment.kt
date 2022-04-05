@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.jasindagebyriani.movieapp.databinding.FragmentTopRatedBinding
@@ -34,6 +35,7 @@ class TopRatedFragment : Fragment(), TopRatedContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         presenter.attachView(this)
         presenter.loadData()
+        showLoading(true)
 
         initRecyclerView()
     }
@@ -44,11 +46,17 @@ class TopRatedFragment : Fragment(), TopRatedContract.View {
     }
 
     override fun showList(movies: List<MovieViewObject>) {
+        showLoading(false)
         adapter.submitList(movies)
     }
 
     override fun showError() {
-        TODO("Not yet implemented")
+        showLoading(false)
+        binding.errorContainer.root.isVisible = true
+    }
+
+    private fun showLoading(isVisible: Boolean) {
+        binding.progressBar.isVisible = isVisible
     }
 
     private fun initRecyclerView() {

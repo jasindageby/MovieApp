@@ -5,4 +5,6 @@
     <string name="top_rated">Top Rated</string>
     <string name="favorite">Favorite</string>
     <string name="overview">Overview</string>
+    <string name="something_error">Something Error</string>
+    <string name="please_try_again_later">Please try again later</string>
 </resources>
