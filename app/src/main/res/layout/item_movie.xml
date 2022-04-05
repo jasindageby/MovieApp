@@ -17,7 +17,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_margin"
         android:ellipsize="end"
@@ -25,10 +25,21 @@
         android:textColor="@color/black"
         android:textSize="@dimen/medium_font_size"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@id/iv_movie"
+        app:layout_constraintEnd_toStartOf="@id/iv_favorite"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_movie"
         tools:text="Spiderman" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginEnd="@dimen/medium_margin"
+        app:layout_constraintEnd_toEndOf="@id/iv_movie"
+        app:layout_constraintStart_toEndOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/iv_movie"
+        app:srcCompat="@drawable/icon_favorite" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_genre"

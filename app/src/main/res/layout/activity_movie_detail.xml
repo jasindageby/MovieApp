@@ -50,14 +50,23 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/large_margin"
         android:layout_marginTop="@dimen/large_margin"
-        android:layout_marginEnd="@dimen/large_margin"
         android:textColor="@color/black"
         android:textSize="@dimen/large_font_size"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iv_favorite"
         app:layout_constraintStart_toEndOf="@id/iv_poster"
         app:layout_constraintTop_toBottomOf="@id/app_bar"
         tools:text="Spiderman" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_favorite"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="@dimen/large_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_title"
+        app:layout_constraintTop_toTopOf="@id/tv_title"
+        app:srcCompat="@drawable/icon_favorite" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_rating"

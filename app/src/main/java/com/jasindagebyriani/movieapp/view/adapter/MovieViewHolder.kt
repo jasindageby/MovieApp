@@ -25,5 +25,8 @@ class MovieViewHolder(
                 )
             )
         }
+        binding.ivFavorite.setOnClickListener {
+            it.isActivated = !it.isActivated
+        }
     }
 }

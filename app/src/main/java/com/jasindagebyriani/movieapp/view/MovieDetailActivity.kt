@@ -26,6 +26,13 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         initToolbar()
+        initView()
+    }
+
+    private fun initView() {
+        binding.ivFavorite.setOnClickListener {
+            binding.ivFavorite.isActivated = !binding.ivFavorite.isActivated
+        }
     }
 
     private fun initToolbar() {
