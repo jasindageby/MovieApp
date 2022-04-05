@@ -57,8 +57,7 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.4.2'
     implementation 'androidx.room:room-rxjava3:2.4.2'
 
-    annotationProcessor 'androidx.room:room-compiler:2.4.2'
-
+    kapt 'androidx.room:room-compiler:2.4.2'
     kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.13.0'
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 

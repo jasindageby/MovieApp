@@ -1,7 +1,9 @@
 package com.jasindagebyriani.movieapp.di
 
+import com.jasindagebyriani.movieapp.presenter.FavoriteContract
 import com.jasindagebyriani.movieapp.presenter.PopularContract
 import com.jasindagebyriani.movieapp.presenter.TopRatedContract
+import com.jasindagebyriani.movieapp.view.FavoriteFragment
 import com.jasindagebyriani.movieapp.view.PopularFragment
 import com.jasindagebyriani.movieapp.view.TopRatedFragment
 import dagger.Binds
@@ -17,4 +19,7 @@ abstract class ViewModule {
 
     @Binds
     abstract fun bindTopRatedFragment(fragment: TopRatedFragment): TopRatedContract.View
+
+    @Binds
+    abstract fun bindFavoriteFragment(fragment: FavoriteFragment): FavoriteContract.View
 }

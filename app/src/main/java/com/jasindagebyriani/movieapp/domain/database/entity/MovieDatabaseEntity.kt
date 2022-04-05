@@ -15,5 +15,5 @@ data class MovieDatabaseEntity(
     @ColumnInfo(name = "original_language") val originalLanguage: String,
     @ColumnInfo(name = "vote_average") val voteAverage: Double,
     @ColumnInfo(name = "vote_count") val voteCount: Long,
-    @ColumnInfo(name = "genre") val genre: List<String>
+    @ColumnInfo(name = "genre") val genre: String
 )
