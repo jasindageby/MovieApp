@@ -1,8 +1,11 @@
 package com.jasindagebyriani.movieapp.presenter
 
+import com.jasindagebyriani.movieapp.domain.database.entity.MovieDatabaseEntity
 import com.jasindagebyriani.movieapp.domain.entity.Movie
+import com.jasindagebyriani.movieapp.domain.usecase.FavoriteUseCase
 import com.jasindagebyriani.movieapp.domain.usecase.TopRatedUseCase
 import com.jasindagebyriani.movieapp.util.convertReleaseDate
+import com.jasindagebyriani.movieapp.util.mapToString
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -10,6 +13,7 @@ import javax.inject.Inject
 
 class TopRatedPresenter @Inject constructor(
     private val topRatedUseCase: TopRatedUseCase,
+    private val favoriteUseCase: FavoriteUseCase,
     private val ioScheduler: Scheduler,
     private val uiScheduler: Scheduler
 ) : TopRatedContract.Presenter {
@@ -23,7 +27,13 @@ class TopRatedPresenter @Inject constructor(
 
     override fun loadData() {
         topRatedUseCase.getTopRatedMovies()
-            .map { it.mapToMoviesViewObject() }
+            .flatMap {
+                favoriteUseCase.getAllFavorites()
+                    .map { entities -> it to entities.map { it.id } }
+            }
+            .map { (movies, favoriteIds) ->
+                mapToMoviesViewObject(movies, favoriteIds)
+            }
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
             .subscribe({
@@ -35,15 +45,52 @@ class TopRatedPresenter @Inject constructor(
     }
 
     override fun clickFavorite(movieViewObject: MovieViewObject) {
-        TODO("Not yet implemented")
+        if (movieViewObject.isFavorite) {
+            addToFavorite(movieViewObject)
+        } else {
+            removeFromFavorite(movieViewObject)
+        }
     }
 
     override fun detachView() {
         compositeDisposable.clear()
     }
 
-    private fun List<Movie>.mapToMoviesViewObject(): List<MovieViewObject> {
-        return map { movie ->
+    private fun addToFavorite(movieViewObject: MovieViewObject) {
+        favoriteUseCase.addFavorite(movieViewObject.mapToMovieDatabaseEntity())
+            .subscribeOn(ioScheduler)
+            .observeOn(uiScheduler)
+            .subscribe({}, {})
+    }
+
+    private fun removeFromFavorite(movieViewObject: MovieViewObject) {
+        favoriteUseCase.removeFavorite(movieViewObject.mapToMovieDatabaseEntity())
+            .subscribeOn(ioScheduler)
+            .observeOn(uiScheduler)
+            .subscribe({}, {})
+    }
+
+    private fun MovieViewObject.mapToMovieDatabaseEntity(): MovieDatabaseEntity {
+        return MovieDatabaseEntity(
+            id,
+            title,
+            overview,
+            posterPath,
+            backdropPath,
+            releaseDate,
+            originalLanguage,
+            voteAverage,
+            voteCount,
+            genre.mapToString()
+        )
+    }
+
+    private fun mapToMoviesViewObject(
+        movies: List<Movie>,
+        favoriteIds: List<Long>
+    ): List<MovieViewObject> {
+        return movies.map { movie ->
+            val isFavorite = favoriteIds.contains(movie.id)
             with(movie) {
                 MovieViewObject(
                     id,
@@ -56,7 +103,7 @@ class TopRatedPresenter @Inject constructor(
                     voteAverage,
                     voteCount,
                     genre,
-                    false
+                    isFavorite
                 )
             }
         }

@@ -30,10 +30,12 @@ class PresenterModule {
 
     @Provides
     fun provideTopRatedPresenter(
-        topRatedUseCase: TopRatedUseCase
+        topRatedUseCase: TopRatedUseCase,
+        favoriteUseCase: FavoriteUseCase
     ): TopRatedContract.Presenter {
         return TopRatedPresenter(
             topRatedUseCase,
+            favoriteUseCase,
             Schedulers.io(),
             AndroidSchedulers.mainThread()
         )
