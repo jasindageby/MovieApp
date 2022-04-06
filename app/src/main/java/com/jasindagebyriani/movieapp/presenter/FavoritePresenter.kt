@@ -3,7 +3,7 @@ package com.jasindagebyriani.movieapp.presenter
 import com.jasindagebyriani.movieapp.domain.database.entity.MovieDatabaseEntity
 import com.jasindagebyriani.movieapp.domain.usecase.FavoriteUseCase
 import com.jasindagebyriani.movieapp.util.mapToList
-import com.jasindagebyriani.movieapp.util.mapToString
+import com.jasindagebyriani.movieapp.util.mapToMovieDatabaseEntity
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -63,21 +63,6 @@ class FavoritePresenter @Inject constructor(
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
             .subscribe({}, {})
-    }
-
-    private fun MovieViewObject.mapToMovieDatabaseEntity(): MovieDatabaseEntity {
-        return MovieDatabaseEntity(
-            id,
-            title,
-            overview,
-            posterPath,
-            backdropPath,
-            releaseDate,
-            originalLanguage,
-            voteAverage,
-            voteCount,
-            genre.mapToString()
-        )
     }
 
     private fun List<MovieDatabaseEntity>.mapToViewObject(): List<MovieViewObject> {

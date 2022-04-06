@@ -1,11 +1,9 @@
 package com.jasindagebyriani.movieapp.presenter
 
-import com.jasindagebyriani.movieapp.domain.database.entity.MovieDatabaseEntity
-import com.jasindagebyriani.movieapp.domain.entity.Movie
 import com.jasindagebyriani.movieapp.domain.usecase.FavoriteUseCase
 import com.jasindagebyriani.movieapp.domain.usecase.TopRatedUseCase
-import com.jasindagebyriani.movieapp.util.convertReleaseDate
-import com.jasindagebyriani.movieapp.util.mapToString
+import com.jasindagebyriani.movieapp.util.mapToMovieDatabaseEntity
+import com.jasindagebyriani.movieapp.util.mapToMoviesViewObject
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -68,44 +66,5 @@ class TopRatedPresenter @Inject constructor(
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
             .subscribe({}, {})
-    }
-
-    private fun MovieViewObject.mapToMovieDatabaseEntity(): MovieDatabaseEntity {
-        return MovieDatabaseEntity(
-            id,
-            title,
-            overview,
-            posterPath,
-            backdropPath,
-            releaseDate,
-            originalLanguage,
-            voteAverage,
-            voteCount,
-            genre.mapToString()
-        )
-    }
-
-    private fun mapToMoviesViewObject(
-        movies: List<Movie>,
-        favoriteIds: List<Long>
-    ): List<MovieViewObject> {
-        return movies.map { movie ->
-            val isFavorite = favoriteIds.contains(movie.id)
-            with(movie) {
-                MovieViewObject(
-                    id,
-                    title,
-                    overview,
-                    getPosterPath(),
-                    getBackdropPath(),
-                    releaseDate.convertReleaseDate(),
-                    originalLanguage,
-                    voteAverage,
-                    voteCount,
-                    genre,
-                    isFavorite
-                )
-            }
-        }
     }
 }
