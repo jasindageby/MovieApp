@@ -51,4 +51,15 @@ class PresenterModule {
             AndroidSchedulers.mainThread()
         )
     }
+
+    @Provides
+    fun provideMovieDetailPresenter(
+        favoriteUseCase: FavoriteUseCase
+    ): MovieDetailContract.Presenter {
+        return MovieDetailPresenter(
+            favoriteUseCase,
+            Schedulers.io(),
+            AndroidSchedulers.mainThread()
+        )
+    }
 }

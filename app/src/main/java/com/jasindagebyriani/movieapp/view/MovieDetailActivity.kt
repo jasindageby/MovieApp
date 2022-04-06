@@ -8,11 +8,16 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.jasindagebyriani.movieapp.databinding.ActivityMovieDetailBinding
+import com.jasindagebyriani.movieapp.presenter.MovieDetailContract
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
+    @Inject
+    lateinit var presenter: MovieDetailContract.Presenter
+
     private lateinit var binding: ActivityMovieDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,13 +31,6 @@ class MovieDetailActivity : AppCompatActivity() {
         }
 
         initToolbar()
-        initView()
-    }
-
-    private fun initView() {
-        binding.ivFavorite.setOnClickListener {
-            binding.ivFavorite.isActivated = !binding.ivFavorite.isActivated
-        }
     }
 
     private fun initToolbar() {
@@ -58,12 +56,19 @@ class MovieDetailActivity : AppCompatActivity() {
             tvReleaseDate.text = movieViewObject.releaseDate
             tvLanguage.text = movieViewObject.originalLanguage
             tvOverview.text = movieViewObject.overview
+            ivFavorite.isActivated = movieViewObject.isFavorite
 
             Glide.with(this@MovieDetailActivity)
                 .load(movieViewObject.posterPath).into(ivPoster)
 
             Glide.with(this@MovieDetailActivity)
                 .load(movieViewObject.backdropPath).into(ivBackground)
+
+            binding.ivFavorite.setOnClickListener {
+                val currentIsFavorite = movieViewObject.isFavorite
+                ivFavorite.isActivated = !currentIsFavorite
+                presenter.clickFavorite(movieViewObject.copy(isFavorite = !currentIsFavorite))
+            }
         }
     }
 
