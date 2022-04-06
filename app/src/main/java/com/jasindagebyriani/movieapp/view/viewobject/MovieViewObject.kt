@@ -14,5 +14,6 @@ data class MovieViewObject(
     val originalLanguage: String,
     val voteAverage: Double,
     val voteCount: Long,
-    val genre: List<String>
+    val genre: List<String>,
+    val isFavorite: Boolean
 ) : Parcelable

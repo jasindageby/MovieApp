@@ -34,6 +34,14 @@ class TopRatedPresenter @Inject constructor(
             .let(compositeDisposable::add)
     }
 
+    override fun clickFavorite(movieViewObject: MovieViewObject) {
+        TODO("Not yet implemented")
+    }
+
+    override fun detachView() {
+        compositeDisposable.clear()
+    }
+
     private fun List<Movie>.mapToMoviesViewObject(): List<MovieViewObject> {
         return map { movie ->
             with(movie) {
@@ -47,13 +55,10 @@ class TopRatedPresenter @Inject constructor(
                     originalLanguage,
                     voteAverage,
                     voteCount,
-                    genre
+                    genre,
+                    false
                 )
             }
         }
-    }
-
-    override fun detachView() {
-        compositeDisposable.clear()
     }
 }

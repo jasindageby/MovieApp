@@ -38,6 +38,14 @@ class FavoritePresenter @Inject constructor(
             })
     }
 
+    override fun clickFavorite(movieViewObject: MovieViewObject) {
+        TODO("Not yet implemented")
+    }
+
+    override fun detachView() {
+        disposable.clear()
+    }
+
     private fun List<MovieDatabaseEntity>.mapToViewObject(): List<MovieViewObject> {
         return map { entity ->
             with(entity) {
@@ -51,13 +59,10 @@ class FavoritePresenter @Inject constructor(
                     originalLanguage,
                     voteAverage,
                     voteCount,
-                    genre.mapToList()
+                    genre.mapToList(),
+                    true
                 )
             }
         }
-    }
-
-    override fun detachView() {
-        disposable.clear()
     }
 }

@@ -61,7 +61,8 @@ class TopRatedPresenterTest {
                 "en",
                 8.8,
                 321L,
-                listOf("action", "comedy")
+                listOf("action", "comedy"),
+                false
             )
         )
         verify(view).showList(expectedMoviesViewObject)

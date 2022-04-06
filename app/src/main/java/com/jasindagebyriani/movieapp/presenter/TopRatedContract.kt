@@ -6,6 +6,7 @@ interface TopRatedContract {
     interface Presenter {
         fun attachView(view: View)
         fun loadData()
+        fun clickFavorite(movieViewObject: MovieViewObject)
         fun detachView()
     }
 

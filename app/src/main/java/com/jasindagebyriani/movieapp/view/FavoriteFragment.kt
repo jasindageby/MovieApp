@@ -65,7 +65,9 @@ class FavoriteFragment : Fragment(), FavoriteContract.View {
 
     private fun initRecyclerView() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
-        adapter = MovieAdapter()
+        adapter = MovieAdapter {
+            presenter.clickFavorite(it)
+        }
         binding.rvFavorite.layoutManager = layoutManager
         binding.rvFavorite.adapter = adapter
     }

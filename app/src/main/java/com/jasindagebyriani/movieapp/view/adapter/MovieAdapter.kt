@@ -7,7 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import com.jasindagebyriani.movieapp.databinding.ItemMovieBinding
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 
-class MovieAdapter : ListAdapter<MovieViewObject, MovieViewHolder>(MovieDiffUtil()) {
+class MovieAdapter(
+    private val onClickFavorite: (MovieViewObject) -> Unit
+) : ListAdapter<MovieViewObject, MovieViewHolder>(MovieDiffUtil()) {
+
+    private val list = mutableListOf<MovieViewObject>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
@@ -18,7 +22,14 @@ class MovieAdapter : ListAdapter<MovieViewObject, MovieViewHolder>(MovieDiffUtil
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        list.add(getItem(position))
+        holder.bind(list[position])
+
+        holder.binding.ivFavorite.setOnClickListener {
+            list[position] = list[position].copy(isFavorite = !list[position].isFavorite)
+            onClickFavorite(list[position])
+            notifyItemChanged(position)
+        }
     }
 }
 

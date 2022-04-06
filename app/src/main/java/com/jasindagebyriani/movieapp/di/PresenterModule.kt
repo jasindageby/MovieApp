@@ -17,10 +17,12 @@ class PresenterModule {
 
     @Provides
     fun providePopularPresenter(
-        popularUseCase: PopularUseCase
+        popularUseCase: PopularUseCase,
+        favoriteUseCase: FavoriteUseCase
     ): PopularContract.Presenter {
         return PopularPresenter(
             popularUseCase,
+            favoriteUseCase,
             Schedulers.io(),
             AndroidSchedulers.mainThread()
         )

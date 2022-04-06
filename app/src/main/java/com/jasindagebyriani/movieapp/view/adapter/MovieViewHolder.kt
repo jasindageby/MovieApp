@@ -7,7 +7,7 @@ import com.jasindagebyriani.movieapp.view.MovieDetailActivity
 import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 
 class MovieViewHolder(
-    private val binding: ItemMovieBinding
+    val binding: ItemMovieBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(movie: MovieViewObject) {
@@ -15,6 +15,7 @@ class MovieViewHolder(
             Glide.with(binding.root).load(movie.posterPath).into(ivMovie)
             tvTitle.text = movie.title
             tvGenre.text = movie.genre.toString()
+            ivFavorite.isActivated = movie.isFavorite
         }
 
         binding.root.setOnClickListener {
@@ -24,9 +25,6 @@ class MovieViewHolder(
                     movie
                 )
             )
-        }
-        binding.ivFavorite.setOnClickListener {
-            it.isActivated = !it.isActivated
         }
     }
 }

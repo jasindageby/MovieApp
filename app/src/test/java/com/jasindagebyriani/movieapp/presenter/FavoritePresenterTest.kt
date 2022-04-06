@@ -46,7 +46,7 @@ class FavoritePresenterTest {
                 "en",
                 8.8,
                 321L,
-                listOf("action", "comedy")
+                "action, comedy"
             )
         )
 
@@ -66,7 +66,8 @@ class FavoritePresenterTest {
                 "en",
                 8.8,
                 321L,
-                listOf("action", "comedy")
+                listOf("action", "comedy"),
+                true
             )
         )
         verify(view).showList(expectedMoviesViewObject)

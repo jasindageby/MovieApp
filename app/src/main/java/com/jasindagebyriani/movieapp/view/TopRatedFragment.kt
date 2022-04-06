@@ -61,7 +61,9 @@ class TopRatedFragment : Fragment(), TopRatedContract.View {
 
     private fun initRecyclerView() {
         val layoutManager = GridLayoutManager(requireContext(), 2)
-        adapter = MovieAdapter()
+        adapter = MovieAdapter {
+            presenter.clickFavorite(it)
+        }
         binding.rvTopRated.layoutManager = layoutManager
         binding.rvTopRated.adapter = adapter
     }
