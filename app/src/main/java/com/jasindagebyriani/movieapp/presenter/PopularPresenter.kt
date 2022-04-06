@@ -27,7 +27,13 @@ class PopularPresenter @Inject constructor(
 
     override fun loadData() {
         popularUseCase.getPopularMovies()
-            .map { it.mapToMoviesViewObject() }
+            .flatMap {
+                favoriteUseCase.getAllFavorites()
+                    .map { entities -> it to entities.map { it.id } }
+            }
+            .map { (movies, favoriteIds) ->
+                mapToMoviesViewObject(movies, favoriteIds)
+            }
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
             .subscribe({
@@ -79,8 +85,12 @@ class PopularPresenter @Inject constructor(
         )
     }
 
-    private fun List<Movie>.mapToMoviesViewObject(): List<MovieViewObject> {
-        return map { movie ->
+    private fun mapToMoviesViewObject(
+        movies: List<Movie>,
+        favoriteIds: List<Long>
+    ): List<MovieViewObject> {
+        return movies.map { movie ->
+            val isFavorite = favoriteIds.contains(movie.id)
             with(movie) {
                 MovieViewObject(
                     id,
@@ -93,7 +103,7 @@ class PopularPresenter @Inject constructor(
                     voteAverage,
                     voteCount,
                     genre,
-                    false
+                    isFavorite
                 )
             }
         }

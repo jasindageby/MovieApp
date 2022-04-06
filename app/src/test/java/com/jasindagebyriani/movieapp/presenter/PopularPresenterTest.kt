@@ -52,6 +52,7 @@ class PopularPresenterTest {
         )
 
         whenever(popularUseCase.getPopularMovies()).thenReturn(Observable.just(movies))
+        whenever(favoriteUseCase.getAllFavorites()).thenReturn(Observable.just(emptyList()))
 
         presenter.attachView(view)
         presenter.loadData()
@@ -75,8 +76,20 @@ class PopularPresenterTest {
     }
 
     @Test
-    fun `given data return error when loadData should showError`() {
+    fun `given data popular return error when loadData should showError`() {
         whenever(popularUseCase.getPopularMovies()).thenReturn(Observable.error(Exception()))
+        whenever(favoriteUseCase.getAllFavorites()).thenReturn(Observable.just(emptyList()))
+
+        presenter.attachView(view)
+        presenter.loadData()
+
+        verify(view).showError()
+    }
+
+    @Test
+    fun `given data  favorite return error when loadData should showError`() {
+        whenever(popularUseCase.getPopularMovies()).thenReturn(Observable.just(emptyList()))
+        whenever(favoriteUseCase.getAllFavorites()).thenReturn(Observable.error(Exception()))
 
         presenter.attachView(view)
         presenter.loadData()
