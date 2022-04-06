@@ -6,6 +6,7 @@ import com.jasindagebyriani.movieapp.view.viewobject.MovieViewObject
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.junit.Before
@@ -46,7 +47,7 @@ class FavoritePresenterTest {
                 "en",
                 8.8,
                 321L,
-                "action, comedy"
+                "action,comedy"
             )
         )
 
@@ -66,7 +67,7 @@ class FavoritePresenterTest {
                 "en",
                 8.8,
                 321L,
-                listOf("action", "comedy"),
+                listOf("action","comedy"),
                 true
             )
         )
@@ -81,5 +82,79 @@ class FavoritePresenterTest {
         presenter.loadData()
 
         verify(view).showError()
+    }
+
+    @Test
+    fun `given data is favorite when clickFavorite should add data to favorite`() {
+        val viewObject = MovieViewObject(
+            123L,
+            "title",
+            "overview",
+            "https://image.tmdb.org/t/p/w500/aiueo.jpg",
+            "https://image.tmdb.org/t/p/w500/qwerty.jpg",
+            "15 December 2021",
+            "en",
+            8.8,
+            321L,
+            listOf("action", "comedy"),
+            true
+        )
+
+        val entity = MovieDatabaseEntity(
+            123L,
+            "title",
+            "overview",
+            "https://image.tmdb.org/t/p/w500/aiueo.jpg",
+            "https://image.tmdb.org/t/p/w500/qwerty.jpg",
+            "15 December 2021",
+            "en",
+            8.8,
+            321L,
+            "action,comedy"
+        )
+
+        whenever(useCase.addFavorite(entity)).thenReturn(Completable.complete())
+
+        presenter.attachView(view)
+        presenter.clickFavorite(viewObject)
+
+        verify(useCase).addFavorite(entity)
+    }
+
+    @Test
+    fun `given data is not favorite when clickFavorite should remove data from favorite`() {
+        val viewObject = MovieViewObject(
+            123L,
+            "title",
+            "overview",
+            "https://image.tmdb.org/t/p/w500/aiueo.jpg",
+            "https://image.tmdb.org/t/p/w500/qwerty.jpg",
+            "15 December 2021",
+            "en",
+            8.8,
+            321L,
+            listOf("action", "comedy"),
+            false
+        )
+
+        val entity = MovieDatabaseEntity(
+            123L,
+            "title",
+            "overview",
+            "https://image.tmdb.org/t/p/w500/aiueo.jpg",
+            "https://image.tmdb.org/t/p/w500/qwerty.jpg",
+            "15 December 2021",
+            "en",
+            8.8,
+            321L,
+            "action,comedy"
+        )
+
+        whenever(useCase.removeFavorite(entity)).thenReturn(Completable.complete())
+
+        presenter.attachView(view)
+        presenter.clickFavorite(viewObject)
+
+        verify(useCase).removeFavorite(entity)
     }
 }
