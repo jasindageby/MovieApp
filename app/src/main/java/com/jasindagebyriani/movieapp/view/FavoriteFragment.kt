@@ -46,6 +46,7 @@ class FavoriteFragment : Fragment(), FavoriteContract.View {
     }
 
     override fun showList(movies: List<MovieViewObject>) {
+        binding.tvEmpty.isVisible = false
         showLoading(false)
         adapter.submitList(movies)
     }

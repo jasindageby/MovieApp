@@ -62,4 +62,15 @@ class PresenterModule {
             AndroidSchedulers.mainThread()
         )
     }
+
+    @Provides
+    fun provideMainPresenter(
+        favoriteUseCase: FavoriteUseCase
+    ): MainContract.Presenter {
+        return MainPresenter(
+            favoriteUseCase,
+            Schedulers.io(),
+            AndroidSchedulers.mainThread()
+        )
+    }
 }
