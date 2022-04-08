@@ -21,9 +21,12 @@ class MovieAdapter(
         )
     }
 
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id
+    }
+
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        list.add(getItem(position))
-        holder.bind(list[position])
+        holder.bind(getListItem(position))
 
         holder.binding.ivFavorite.setOnClickListener {
             list[position] = list[position].copy(isFavorite = !list[position].isFavorite)
@@ -31,6 +34,15 @@ class MovieAdapter(
             notifyItemChanged(position)
         }
     }
+
+    private fun getListItem(position: Int): MovieViewObject {
+        val contain = list.firstOrNull { it.id == getItemId(position) } != null
+        if (contain) list[position] = getItem(position)
+        else list.add(getItem(position))
+
+        return list[position]
+    }
+
 }
 
 class MovieDiffUtil : DiffUtil.ItemCallback<MovieViewObject>() {
