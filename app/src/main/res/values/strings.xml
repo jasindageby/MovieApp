@@ -8,4 +8,7 @@
     <string name="something_error">Something Error</string>
     <string name="please_try_again_later">Please try again later</string>
     <string name="empty_list">Empty List. Add Your Favorite Movie</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
 </resources>
